@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import api from '../../utils/api';
-import { useAuth } from '../../context/AuthContext';
+import api from '../../../utils/api';
+import { useAuth } from '../../../context/AuthContext';
 import { useTranslation } from 'react-i18next';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../../components/Navbar';
 import { Plus, Trash2, Edit2, List } from 'lucide-react';
 import toast from 'react-hot-toast';
 

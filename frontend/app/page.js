@@ -11,9 +11,9 @@ import { ArrowRight, Sparkles, Search } from 'lucide-react';
 
 export default function Home() {
   const { t } = useTranslation();
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState(MOCK_PRODUCTS);
+  const [categories, setCategories] = useState(MOCK_CATEGORIES);
+  const [filteredProducts, setFilteredProducts] = useState(MOCK_PRODUCTS);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -28,10 +28,7 @@ export default function Home() {
         setCategories(catRes.data.data);
         setFilteredProducts(prodRes.data.data);
       } catch (err) {
-        console.error('Failed to fetch data, switching to Demo Mode');
-        setProducts(MOCK_PRODUCTS);
-        setCategories(MOCK_CATEGORIES);
-        setFilteredProducts(MOCK_PRODUCTS);
+        console.error('API Offline - Staying in Demo Mode');
       } finally {
         setLoading(false);
       }

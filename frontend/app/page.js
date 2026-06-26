@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
+import { MOCK_PRODUCTS, MOCK_CATEGORIES } from '../utils/mockData';
 import { ArrowRight, Sparkles, Search } from 'lucide-react';
 
 export default function Home() {
@@ -27,9 +28,10 @@ export default function Home() {
         setCategories(catRes.data.data);
         setFilteredProducts(prodRes.data.data);
       } catch (err) {
-        console.error('Failed to fetch data');
-        setProducts([]);
-        setCategories([]);
+        console.error('Failed to fetch data, switching to Demo Mode');
+        setProducts(MOCK_PRODUCTS);
+        setCategories(MOCK_CATEGORIES);
+        setFilteredProducts(MOCK_PRODUCTS);
       } finally {
         setLoading(false);
       }

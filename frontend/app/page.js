@@ -28,7 +28,7 @@ export default function Home() {
         setCategories(catRes.data.data);
         setFilteredProducts(prodRes.data.data);
       } catch (err) {
-        console.error('API Offline - Staying in Demo Mode');
+        console.warn('API Offline - Staying in Demo Mode');
       } finally {
         setLoading(false);
       }

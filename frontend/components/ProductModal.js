@@ -33,12 +33,14 @@ export default function ProductModal() {
               <X size={24} />
             </button>
 
-            {/* Product Image */}
             <div className="w-full md:w-1/2 h-[400px] md:h-auto bg-white/5 relative group">
                <img 
                  src={product.images?.[0]} 
                  alt={product.name} 
                  className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700" 
+                 onError={(e) => {
+                   e.target.src = 'https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1000';
+                 }}
                />
                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>

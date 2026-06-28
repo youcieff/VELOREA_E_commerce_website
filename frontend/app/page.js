@@ -67,9 +67,11 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 px-8 md:px-16 flex flex-col items-center justify-center min-h-screen overflow-hidden">
-        {/* Background Glows */}
-        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px] -z-10" />
+      <section className="hero-gradient relative pt-40 pb-20 px-8 md:px-16 flex flex-col items-center justify-center min-h-screen overflow-hidden">
+        {/* Animated Gradient Orbs */}
+        <div className="hero-orb hero-orb-1" />
+        <div className="hero-orb hero-orb-2" />
+        <div className="hero-orb hero-orb-3" />
         
         <div className="w-full max-w-7xl mx-auto">
           <div className="flex items-center gap-3 mb-8">

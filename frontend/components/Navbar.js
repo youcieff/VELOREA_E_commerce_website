@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useTranslation } from 'react-i18next';
-import { ShoppingCart, User, Globe, LogOut, Menu, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ShoppingCart, User, Globe, LogOut, Menu, Search, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import AuthModal from './AuthModal';
 import CartOverlay from './CartOverlay';
 
@@ -13,6 +13,7 @@ export default function Navbar() {
   const { totalItems, setIsCartOpen } = useCart();
   const { t } = useTranslation();
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <>
@@ -87,12 +88,54 @@ export default function Navbar() {
               </button>
             )}
 
-            <button className="md:hidden">
-              <Menu size={24} />
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden relative z-[60]">
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
       </nav>
+
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md pt-24 px-8 flex flex-col gap-6 md:hidden"
+          >
+             <div className="flex flex-col gap-8 mt-10 text-xs font-bold tracking-[0.2em] uppercase">
+                <button 
+                  onClick={() => {
+                    document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-left w-full border-b border-white/10 pb-4 flex items-center justify-between"
+                >
+                  {t('products')} <span className="text-accent">{">"}</span>
+                </button>
+                <button 
+                  onClick={() => {
+                    document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-left w-full border-b border-white/10 pb-4 flex items-center justify-between"
+                >
+                  {t('categories')} <span className="text-accent">{">"}</span>
+                </button>
+                {user?.role === 'admin' && (
+                   <a 
+                     href="/admin" 
+                     onClick={() => setIsMobileMenuOpen(false)}
+                     className="text-accent text-left w-full border-b border-white/10 pb-4 flex items-center justify-between"
+                   >
+                     {t('admin_dash')} <span>{">"}</span>
+                   </a>
+                )}
+             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
       <CartOverlay />
     </>
